@@ -22,9 +22,9 @@ const Products = [
         image: "https://images-eu.ssl-images-amazon.com/images/I/51hRbTfKZ-L._SX300_SY300_QL70_FMwebp_.jpg"
     },
     {
-        name:"Personal Air Cooler",
-        price:"3000",
-        image:"https://m.media-amazon.com/images/I/51QaS96vdpL._SX522_.jpg"
+        name: "Personal Air Cooler",
+        price: "3000",
+        image: "https://m.media-amazon.com/images/I/51QaS96vdpL._SX522_.jpg"
     },
     {
         name: "iPhone 12 Pro",
@@ -42,9 +42,9 @@ const Products = [
         image: "https://images-eu.ssl-images-amazon.com/images/I/51hRbTfKZ-L._SX300_SY300_QL70_FMwebp_.jpg"
     },
     {
-        name:"Personal Air Cooler",
-        price:"3000",
-        image:"https://m.media-amazon.com/images/I/51QaS96vdpL._SX522_.jpg"
+        name: "Personal Air Cooler",
+        price: "3000",
+        image: "https://m.media-amazon.com/images/I/51QaS96vdpL._SX522_.jpg"
     }
 
 ]
@@ -60,7 +60,7 @@ const Home = () => {
                     <p className='text-light m-3 '>A platform for college students to Buy, Sell and Rent things online.  </p>
                 </div>
             </div>
-            <div className="mainConatiner vh-100 ">
+            <div className="mainConatiner">
                 <div className="mainNav mx-auto">
                     <div className="items d-flex justify-content-between align-items-center">
                         <div className="left d-flex">
@@ -88,8 +88,8 @@ const Home = () => {
                             </div>
                             <div className="btn-1 bg-success d-flex align-items-center justify-content-between w-50 mx-2">
                                 <button className="btn btn-success w-25">Saved</button>
-                                <AddCircleIcon sx={{ cursor: "pointer", color:"white", marginRight:"2px" }} />
-                            </div> 
+                                <AddCircleIcon sx={{ cursor: "pointer", color: "white", marginRight: "2px" }} />
+                            </div>
                         </div>
 
                     </div>

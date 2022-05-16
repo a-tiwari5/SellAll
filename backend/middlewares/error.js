@@ -19,7 +19,7 @@ const errorHandler = async (err, req, res, next) => {
         error = new ErrorResponse(message, 400)
     }
 
-    //MOngoose Validatation Error
+    //Mongoose Validatation Error
     if (err.name === '') {
         const message = Object.values(err.errors).map(val => val.message)
         err = new ErrorResponse(message, 400)

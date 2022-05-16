@@ -1,10 +1,17 @@
 import Home from './pages/Home/Home'
+import Sell from './pages/Sell/Sell'
+import {
+  Routes,
+  Route,
+  BrowserRouter,
+} from "react-router-dom";
 
 const App = () => {
   return (
-    <div className='vh-100 vw-100'>
-      <Home />
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path='/sell' element={<Sell />} />
+    </Routes>
   )
 }
 

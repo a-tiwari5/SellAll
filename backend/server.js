@@ -6,7 +6,8 @@ const colors = require('colors')
 const cookieParser = require('cookie-parser')
 const mongoose = require('mongoose')
 const errorHandler = require('./middlewares/error')
-
+var cors = require('cors');
+app.use(cors());
 
 dotenv.config()
 const connectDB = async () => {
@@ -39,11 +40,5 @@ app.use(errorHandler)
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
-    console.log("Server is running on port 8000".yellow.bold)
+    console.log(`Server is running on port ${PORT}`.yellow.bold)
 })
-
-
-// process.on('unhandledRejection', (err, promise) => {
-//     console.log(`Error :${err.message}`);
-//     server.close(() => process.exit(1))
-// })

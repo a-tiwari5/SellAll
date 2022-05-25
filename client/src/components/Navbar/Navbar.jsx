@@ -4,37 +4,58 @@ import { Modal, Button } from 'react-bootstrap'
 import { RemoveRedEyeOutlined } from '@mui/icons-material/';
 import { FacebookRounded, Google } from '@mui/icons-material/';
 import { Search, ArrowDropDown } from '@mui/icons-material'
-const Navbar = () => {
-
+import { Link } from "react-router-dom"
+import { connect } from 'react-redux';
+import { LogOutUser } from '../../actions';
+import axios from 'axios';
+const Navbar = (props) => {
     const [show, setShow] = useState(false)
     const [loggedIn, setLoggedIn] = useState(false)
-    const [signIn, setSignIn]=useState(false)
+    const [signIn, setSignIn] = useState(false)
+
+
+    const logoutHandler = async (logoutuser) => {
+        await axios.get('/auth/logout')
+        localStorage.removeItem('token')
+        logoutuser(props.currentUser);
+    }
     return (
         <div className='navbarContainer w-auto sticky-top' >
             <div className="items w-auto d-flex justify-content-between h-100 align-items-center">
-                <div className="item">
-                    <div className="logo fs-5">
-                        <span className='text-success fw-bold'>Sell</span>All
-                    </div>
-                </div>
-                <div className="item">
-                    <div className="inputContainer d-flex align-items-center">
-                        <Search className='search' />
-                        <input className='input' type="text" name="" id="" placeholder='Search for any product in SellAll' />
-                    </div>
-                </div>
-                <div className="left" onClick={() => { setShow(!show) }}>
-                    {loggedIn ?
-                        <div style={{cursor:"pointer"}}><img className='avatar mx-2' src="https://images.unsplash.com/photo-1525648199074-cee30ba79a4a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="" />
-                            <span className='text-dark'> Siddharth Goyal</span></div> :
-                        <div style={{cursor:"pointer"}}>
-                            Create account. <span className='text-primary'>It's free</span><ArrowDropDown />
+                <Link to='/' style={{ textDecoration: 'none' }}>
+                    <div className="item">
+                        <div className="logo fs-5">
+                            <span className='text-success fw-bold'>Sell</span>All
                         </div>
+                    </div>
+                </Link>
+                {
+                    window.location.pathname === '/login' || window.location.pathname === '/sell' ?
+                        '' : <div className="item">
+                            <div className="inputContainer d-flex align-items-center">
+                                <Search className='search' />
+                                <input className='input' type="text" name="" id="" placeholder='Search for any product in SellAll' />
+                            </div>
+                        </div>
+                }
+                <div className="left">
+                    {props.currentUser.name ?
+                        <div style={{ cursor: "pointer" }} className="d-flex align-items-center">
+                            <img className='avatar mx-2' src="https://images.unsplash.com/photo-1525648199074-cee30ba79a4a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="" />
+                            <span className='text-dark'>{props.currentUser.name}</span>
+                            <div className='btn btn-primary mx-4' onClick={() => logoutHandler(props.LogOutUser)}>Logout</div>
+                        </div> :
+                        <Link to='/login'>
+                            <div style={{ cursor: "pointer" }}>
+                                Create account. <span className='text-primary'>It's free</span><ArrowDropDown />
+                            </div>
+                        </Link>
 
                     }
                 </div>
             </div>
-            <Modal dialogClassName='my-modal' aria-labelledby="contained-modal-title-vcenter" centered show={show}>
+            {/* onClick={() => { setShow(!show) }}  ->set this in left div for opening modal */}
+            {/* <Modal dialogClassName='my-modal' aria-labelledby="contained-modal-title-vcenter" centered show={show}>
                 <Modal.Header className='title d-flex justify-content-center'>
                     <span className='text-success'>Let's Buy, Rent &#38;  Sell things on SellAll. Sign up now 🤘🏼</span>
                 </Modal.Header>
@@ -68,9 +89,15 @@ const Navbar = () => {
                         </div>
                     </div>
                 </Modal.Body>
-            </Modal>
+            </Modal> */}
         </div>
     )
 }
 
-export default Navbar
+const mapStateToProps = (state) => {
+    return {
+        currentUser: state.currentUser.currentUser
+    }
+}
+
+export default connect(mapStateToProps, { LogOutUser })(Navbar)

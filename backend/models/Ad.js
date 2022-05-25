@@ -4,28 +4,26 @@ const slugify = require('slugify')
 const AdSchema = new mongoose.Schema({
     userId: {
         type: String,
-        unique: true
     },
-    title: {
+    adTitle: {
         type: String,
         required: [true, 'Please add a title'],
         trim: true
     },
     slug: String,
-    desc: {
+    description: {
         type: String,
         required: true
     },
     phone: {
         type: String,
-        unique: true,
         maxlength: 20
     },
     price: {
         type: Number,
         required: true
     },
-    imgs: {
+    image: {
         type: Array,
         default: []
     },
@@ -47,7 +45,7 @@ const AdSchema = new mongoose.Schema({
 
 // Create ad slug from the title
 AdSchema.pre('save', function (next) {
-    this.slug = slugify(this.title, { lower: true })
+    this.slug = slugify(this.adTitle, { lower: true })
     next();
 })
 

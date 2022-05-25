@@ -4,56 +4,71 @@ import Navbar from "../../components/Navbar/Navbar"
 import { ArrowDropDown } from "@mui/icons-material"
 import Box from "../../components/Box/Box"
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { useState } from "react"
+import { useEffect } from "react"
+import axios from "axios"
 
-const Products = [
-    {
-        name: "iPhone 12 Pro",
-        price: "25,000",
-        image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bW9iaWxlJTIwcGhvbmV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
-    },
-    {
-        name: "Dell Laptop",
-        price: "40,000",
-        image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8bGFwdG9wJTIwaHB8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
-    },
-    {
-        name: "Laptop Tabel",
-        price: "5000",
-        image: "https://images-eu.ssl-images-amazon.com/images/I/51hRbTfKZ-L._SX300_SY300_QL70_FMwebp_.jpg"
-    },
-    {
-        name: "Personal Air Cooler",
-        price: "3000",
-        image: "https://m.media-amazon.com/images/I/51QaS96vdpL._SX522_.jpg"
-    },
-    {
-        name: "iPhone 12 Pro",
-        price: "25,000",
-        image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bW9iaWxlJTIwcGhvbmV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
-    },
-    {
-        name: "Dell Laptop",
-        price: "40,000",
-        image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8bGFwdG9wJTIwaHB8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
-    },
-    {
-        name: "Laptop Tabel",
-        price: "5000",
-        image: "https://images-eu.ssl-images-amazon.com/images/I/51hRbTfKZ-L._SX300_SY300_QL70_FMwebp_.jpg"
-    },
-    {
-        name: "Personal Air Cooler",
-        price: "3000",
-        image: "https://m.media-amazon.com/images/I/51QaS96vdpL._SX522_.jpg"
-    }
+// const Products = [
+//     {
+//         name: "iPhone 12 Pro",
+//         price: "25,000",
+//         image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bW9iaWxlJTIwcGhvbmV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
+//     },
+//     {
+//         name: "Dell Laptop",
+//         price: "40,000",
+//         image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8bGFwdG9wJTIwaHB8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
+//     },
+//     {
+//         name: "Laptop Tabel",
+//         price: "5000",
+//         image: "https://images-eu.ssl-images-amazon.com/images/I/51hRbTfKZ-L._SX300_SY300_QL70_FMwebp_.jpg"
+//     },
+//     {
+//         name: "Personal Air Cooler",
+//         price: "3000",
+//         image: "https://m.media-amazon.com/images/I/51QaS96vdpL._SX522_.jpg"
+//     },
+//     {
+//         name: "iPhone 12 Pro",
+//         price: "25,000",
+//         image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bW9iaWxlJTIwcGhvbmV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
+//     },
+//     {
+//         name: "Dell Laptop",
+//         price: "40,000",
+//         image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8bGFwdG9wJTIwaHB8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"
+//     },
+//     {
+//         name: "Laptop Table",
+//         price: "5000",
+//         image: "https://images-eu.ssl-images-amazon.com/images/I/51hRbTfKZ-L._SX300_SY300_QL70_FMwebp_.jpg"
+//     },
+//     {
+//         name: "Personal Air Cooler",
+//         price: "3000",
+//         image: "https://m.media-amazon.com/images/I/51QaS96vdpL._SX522_.jpg"
+//     }
 
-]
+// ]
 
+
+const BackgroundColors = ['#F8E3ED', '#FFF5E8', '#E7FFFD', '#FDFFF3', '#D4E7F8', '#FFF5F2', '#FDF3F6']
 
 const Home = () => {
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await axios.get('/ads/')
+            setData(res.data.data)
+        }
+        fetchData()
+    }, [])
+
+
     return (
         <div className='homeContainer w-100'>
-            <Navbar />
             <div id="header-img">
                 <div className="text">
                     <h1 className='text-light fs-1'>Buy What You Need, Sell What You Don't.</h1>
@@ -94,9 +109,16 @@ const Home = () => {
 
                     </div>
                 </div>
-                <div className="container my-4">
+                <div className="listContainer">
                     <div className="row justify-content-around">
-                        <Box className="col-sm" color="#F8E3ED" name={Products[0].name} price={Products[0].price} image={Products[0].image} />
+                        {
+                            data.map((item) => {
+                                const random = BackgroundColors[Math.floor(Math.random() * 6)];
+                                return <Box key={item._id} className="col-sm" color={random} name={item.adTitle} price={item.price} image={item.image[0]} />
+                            })
+                        }
+
+                        {/* <Box className="col-sm" color="#F8E3ED" name={Products[0].name} price={Products[0].price} image={Products[0].image} />
                         <Box className="col-sm" color="#FFF5E8" name={Products[1].name} price={Products[1].price} image={Products[1].image} />
                         <Box className="col-sm" color="#E7FFFB" name={Products[2].name} price={Products[2].price} image={Products[2].image} />
                         <Box className="col-sm" color="#E7FFFD" name={Products[3].name} price={Products[3].price} image={Products[3].image} />
@@ -109,23 +131,8 @@ const Home = () => {
                         <Box className="col-sm" color="#E7FFFD" name={Products[3].name} price={Products[3].price} image={Products[3].image} />
                         <Box className="col-sm" color="#E7FFFD" name={Products[3].name} price={Products[3].price} image={Products[3].image} />
                         <Box className="col-sm" color="#E7FFFD" name={Products[3].name} price={Products[3].price} image={Products[3].image} />
-                        <Box className="col-sm" color="#E7FFFD" name={Products[3].name} price={Products[3].price} image={Products[3].image} />
+                        <Box className="col-sm" color="#E7FFFD" name={Products[3].name} price={Products[3].price} image={Products[3].image} /> */}
                     </div>
-                    {/* <div className="d-flex flex-column align-items-center">
-                        <div className="location mx-2 d-flex">
-                            <LocationOnOutlined style={{ cursor: "pointer" }} />
-                            <div>
-                                <input className="" placeholder="Noida, India" type="text" />
-                                <EditIcon style={{ cursor: "pointer" }} />
-                            </div>
-                        </div>
-                        <div className="info d-flex align-items-center justify-content-center">
-                            <HelpIcon style={{ cursor: "pointer" }} />
-                            <span>Your location will help us serve better and extend a personalised experience.</span>
-                        </div>
-                    </div> */}
-
-
                 </div>
             </div>
         </div>

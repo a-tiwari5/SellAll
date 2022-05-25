@@ -17,7 +17,7 @@ exports.register = asyncHandler(async (req, res, next) => {
     sendTokenResponse(user, 200, res)
 })
 
-// @desc   Logn a User
+// @desc   Login a User
 // @route  POST /api/v1/auth/login
 // @access PUBLIC
 
@@ -33,7 +33,7 @@ exports.login = asyncHandler(async (req, res, next) => {
     const user = await User.findOne({ email: email }).select('+password')
 
     if (!user) {
-        return next(new ErrorResponse('Invalid Credentials'), 401)
+        return next(new ErrorResponse('Invalid Credentials', 401))
     }
 
     // Check if passoword matches
@@ -83,6 +83,16 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
 })
 
 
+
+
+
+
+
+
+
+
+
+
 // @desc   Reset Password
 // @route  PUT /api/v1/auth/resetpassword/:resetToken
 // @access Public
@@ -108,6 +118,23 @@ exports.resetPassoword = asyncHandler(async (req, res, next) => {
     sendTokenResponse(user, 200, res)
 
 
+})
+
+
+// @desc   Log User Out
+// @route  GET /api/v1/auth/logout
+// @access Private
+
+
+exports.logout = asyncHandler(async (req, res, next) => {
+    res.cookie('token', 'none', {
+        expires: new Date(Date.now() + 10 * 1000),
+        httpOnly: true
+    });
+    res.status(200).json({
+        success: true,
+        data: {}
+    })
 })
 
 

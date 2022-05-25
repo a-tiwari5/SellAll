@@ -2,10 +2,9 @@ import React from 'react'
 import "./box.scss"
 import StarIcon from '@mui/icons-material/Star';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-const Box = ({ color,name, price, image }) => {
-  console.log(name,price, image )
+const Box = ({ color, name, price, image }) => {
   return (
-    
+
     <div className='box' style={{ backgroundColor: color }}>
       <div className="top d-flex justify-content-between w-100 align-items-center">
         <div className="left d-flex align-items-center justify-content-center bg-dark">
